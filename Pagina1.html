@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .contenedor {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .inputs {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            background: #27ae60;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #219150;
+        }
+
+        .lista {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Lista de Mercado</h1>
+
+        <div class="inputs">
+            <input type="text" id="elemento" placeholder="Elemento">
+            <input type="number" id="cantidad" placeholder="Cantidad" min="1">
+            <input type="number" id="precio" placeholder="Precio" min="0">
+            <button id="btnAgregar">Agregar</button>
+        </div>
+
+        <ul id="listaProductos" class="lista">Productos</ul>
+        <div id="total" class="total">Total: $0.00</div>
+    </div>
+
+    <script>
+        // Seleccionamos los elementos del HTML que vamos a usar.
+        const botonAgregar = document.getElementById("btnAgregar");
+        const listaProductos = document.getElementById("listaProductos");
+        const totalElemento = document.getElementById("total");
+
+        // Variable que guarda el total acumulado de la compra.
+        let total = 0;
+
+        // Función para mostrar el valor en moneda colombiana (COP).
+        function formatearCOP(valor) {
+            return new Intl.NumberFormat("es-CO", {
+                style: "currency",
+                currency: "COP",
+                maximumFractionDigits: 0
+            }).format(valor);
+        }
+
+        // Escuchamos el evento click del botón para agregar un producto.
+        botonAgregar.addEventListener("click", function () {
+            // Obtenemos los valores ingresados por el usuario y los limpiamos.
+            const elemento = document.getElementById("elemento").value.trim();
+            const cantidad = Number(document.getElementById("cantidad").value);
+            const precio = Number(document.getElementById("precio").value);
+
+            // Validamos que los datos sean correctos antes de agregar.
+            if (elemento === "" || cantidad <= 0 || precio <= 0) {
+                alert("Completa todos los campos correctamente.");
+                return;
+            }
+
+            // Calculamos el costo total de este producto.
+            const itemTotal = cantidad * precio;
+            total += itemTotal;
+
+            // Creamos un elemento <li> y lo llenamos con los datos del producto.
+            const li = document.createElement("li");
+            li.innerHTML = `<span>${elemento}</span><span>${cantidad}</span><span>${formatearCOP(precio)}</span><span>${formatearCOP(itemTotal)}</span>`;
+
+            // Agregamos el producto a la lista visible en la página.
+            listaProductos.appendChild(li);
+
+            // Actualizamos el texto del total en la pantalla.
+            totalElemento.textContent = `Total: ${formatearCOP(total)}`;
+
+            // Limpiamos los campos para ingresar otro producto.
+            document.getElementById("elemento").value = "";
+            document.getElementById("cantidad").value = "";
+            document.getElementById("precio").value = "";
+        });
+    </script>
+</body>
+</html>
