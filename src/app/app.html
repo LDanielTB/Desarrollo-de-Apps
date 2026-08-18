@@ -1,0 +1,33 @@
+﻿<main class="calculadora">
+  <div class="card">
+    <h1>Calculadora</h1>
+
+    <label for="num1">Número 1</label>
+    <input id="num1" [(ngModel)]="num1" name="num1" />
+
+    <label for="num2">Número 2</label>
+    <input id="num2" [(ngModel)]="num2" name="num2" />
+
+    <label for="operacion">Operación</label>
+    <select id="operacion" [(ngModel)]="operacion" name="operacion">
+      <option value="+">Suma</option>
+      <option value="-">Resta</option>
+      <option value="*">Multiplicación</option>
+      <option value="/">División</option>
+    </select>
+
+    <button type="button" (click)="calcular()">Calcular</button>
+
+    <div class="resultado-box">
+      <span>Resultado:</span>
+      <strong>{{ resultado === null ? 'Sin resultado' : resultado }}</strong>
+    </div>
+
+    <div class="historial-box">
+      <h2>Historial</h2>
+      <ul>
+        <li *ngFor="let item of historial">{{ item }}</li>
+      </ul>
+    </div>
+  </div>
+</main>
