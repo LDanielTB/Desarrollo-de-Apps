@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start"><ion-back-button defaultHref="/home"></ion-back-button></ion-buttons>
+    <ion-title>{{ example.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="page-wrap">
+    <div class="heading">
+      <p class="eyebrow">COMPONENTE IONIC</p>
+      <h1>{{ example.name }}</h1>
+      <p>{{ example.description }}</p>
+    </div>
+
+    <ion-card class="demo-card">
+      <ion-card-header>
+        <ion-card-subtitle>Vista previa</ion-card-subtitle>
+        <ion-card-title>Prueba el componente</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ng-container [ngSwitch]="slug">
+          <ion-button *ngSwitchCase="'action-sheet'" expand="block" (click)="openActionSheet()">Abrir acciones</ion-button>
+          <ion-button *ngSwitchCase="'alert'" expand="block" (click)="openAlert()">Mostrar alerta</ion-button>
+
+          <div *ngSwitchCase="'avatar'" class="avatar-row">
+            <ion-avatar><img alt="Avatar de ejemplo" src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-avatar>
+            <ion-label><h2>María García</h2><p>Diseñadora UX</p></ion-label>
+          </div>
+          <div *ngSwitchCase="'badge'" class="badge-row"><ion-badge color="success">Activo</ion-badge><ion-badge color="warning">Pendiente</ion-badge><ion-badge color="danger">3 alertas</ion-badge></div>
+          <div *ngSwitchCase="'button'" class="button-row"><ion-button color="primary">Primario</ion-button><ion-button fill="outline">Outline</ion-button><ion-button fill="clear">Texto</ion-button></div>
+          <ion-card *ngSwitchCase="'card'" class="nested-card"><ion-card-header><ion-card-title>Proyecto Ionic</ion-card-title></ion-card-header><ion-card-content>Contenido agrupado dentro de una tarjeta.</ion-card-content></ion-card>
+          <div *ngSwitchCase="'chip'" class="chip-row"><ion-chip color="primary"><ion-label>Ionic</ion-label></ion-chip><ion-chip color="success"><ion-icon name="checkmark-circle"></ion-icon><ion-label>Completado</ion-label></ion-chip><ion-chip color="medium" outline>Angular</ion-chip></div>
+          <div *ngSwitchCase="'icon'" class="icon-row"><ion-icon name="heart" color="danger"></ion-icon><ion-icon name="star" color="warning"></ion-icon><ion-icon name="flash" color="primary"></ion-icon></div>
+          <ion-item *ngSwitchCase="'item'"><ion-icon name="mail-outline" slot="start" color="primary"></ion-icon><ion-label><h2>Mensaje nuevo</h2><p>Un item combina contenido y acciones.</p></ion-label><ion-badge slot="end">2</ion-badge></ion-item>
+          <ion-list *ngSwitchCase="'list'" lines="full"><ion-item><ion-label>Primera fila</ion-label></ion-item><ion-item><ion-label>Segunda fila</ion-label></ion-item><ion-item><ion-label>Tercera fila</ion-label></ion-item></ion-list>
+
+          <ion-list *ngSwitchCase="'checkbox'"><ion-item><ion-checkbox [(ngModel)]="checked">Recibir novedades</ion-checkbox></ion-item><ion-item><ion-checkbox>Guardar sesión</ion-checkbox></ion-item></ion-list>
+          <ion-datetime *ngSwitchCase="'datetime'" presentation="date" [showDefaultButtons]="true"></ion-datetime>
+          <ion-item *ngSwitchCase="'input'"><ion-input label="Tu nombre" labelPlacement="stacked" placeholder="Escribe aquí"></ion-input></ion-item>
+          <ion-list *ngSwitchCase="'radio'"><ion-radio-group value="opcion-a"><ion-item><ion-radio value="opcion-a">Opción A</ion-radio></ion-item><ion-item><ion-radio value="opcion-b">Opción B</ion-radio></ion-item></ion-radio-group></ion-list>
+          <ion-item *ngSwitchCase="'range'"><ion-range label="Intensidad" labelPlacement="stacked" [(ngModel)]="rangeValue" [pin]="true"></ion-range></ion-item>
+          <ion-searchbar *ngSwitchCase="'searchbar'" [(ngModel)]="searchValue" placeholder="Buscar componentes"></ion-searchbar>
+          <ion-item *ngSwitchCase="'select'"><ion-select label="Framework" labelPlacement="stacked" [(ngModel)]="selectedValue"><ion-select-option value="Angular">Angular</ion-select-option><ion-select-option value="React">React</ion-select-option><ion-select-option value="Vue">Vue</ion-select-option></ion-select></ion-item>
+          <div *ngSwitchCase="'segment'"><ion-segment [(ngModel)]="selectedSegment"><ion-segment-button value="codigo"><ion-label>Código</ion-label></ion-segment-button><ion-segment-button value="vista"><ion-label>Vista</ion-label></ion-segment-button></ion-segment><p class="segment-output">Vista seleccionada: <strong>{{ selectedSegment }}</strong></p></div>
+          <ion-item *ngSwitchCase="'toggle'"><ion-label>Modo automático</ion-label><ion-toggle [(ngModel)]="toggleValue"></ion-toggle></ion-item>
+
+          <ion-fab *ngSwitchCase="'fab'" class="fab-preview" slot="fixed"><ion-fab-button><ion-icon name="add"></ion-icon></ion-fab-button></ion-fab>
+          <div *ngSwitchCase="'loading'" class="center-preview"><ion-button (click)="simulateLoading()">Simular carga</ion-button><ion-loading [isOpen]="isLoading" message="Cargando datos..."></ion-loading></div>
+          <div *ngSwitchCase="'modal'" class="center-preview"><ion-button (click)="isModalOpen = true">Abrir modal</ion-button><ion-modal [isOpen]="isModalOpen" (didDismiss)="isModalOpen = false"><ng-template><ion-header><ion-toolbar><ion-title>Modal</ion-title><ion-buttons slot="end"><ion-button (click)="isModalOpen = false">Cerrar</ion-button></ion-buttons></ion-toolbar></ion-header><ion-content class="ion-padding">Contenido superpuesto de ejemplo.</ion-content></ng-template></ion-modal></div>
+          <div *ngSwitchCase="'progress-bar'"><ion-progress-bar [value]="progress"></ion-progress-bar><p class="progress-label">65% completado</p></div>
+          <div *ngSwitchCase="'spinner'" class="center-preview"><ion-spinner name="crescent"></ion-spinner><p>Cargando...</p></div>
+          <div *ngSwitchCase="'toast'" class="center-preview"><ion-button (click)="showToast()">Mostrar toast</ion-button></div>
+        </ng-container>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-note class="usage"><strong>Cuándo usarlo:</strong> {{ example.usage }}</ion-note>
+  </div>
+</ion-content>

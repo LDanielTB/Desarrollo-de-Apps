@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Componentes Ionic</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="intro">
+    <p class="eyebrow">CATÁLOGO INTERACTIVO</p>
+    <h1>Explora Ionic</h1>
+    <p>Selecciona un componente para ver un ejemplo funcional y sus controles principales.</p>
+  </div>
+
+  @for (grupo of grupos; track grupo.titulo) {
+  <section class="grupo">
+    <h2>{{ grupo.titulo }}</h2>
+    <ion-list inset>
+      @for (componente of grupo.componentes; track componente[0]) {
+      <ion-item [routerLink]="['/componentes', componente[0]]" detail>
+        <ion-icon name="cube-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h3>{{ componente[1] }}</h3>
+          <p>{{ componente[2] }}</p>
+        </ion-label>
+      </ion-item>
+      }
+    </ion-list>
+  </section>
+  }
+</ion-content>

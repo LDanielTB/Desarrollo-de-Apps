@@ -1,0 +1,38 @@
+<ion-content class="calculadora" [fullscreen]="true">
+  <main class="card">
+    <h1>Calculadora</h1>
+
+    <ion-item lines="none">
+      <ion-input label="Número 1" labelPlacement="stacked" type="number" [(ngModel)]="num1"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-input label="Número 2" labelPlacement="stacked" type="number" [(ngModel)]="num2"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-select label="Operación" labelPlacement="stacked" [(ngModel)]="operacion">
+        <ion-select-option value="+">Suma</ion-select-option>
+        <ion-select-option value="-">Resta</ion-select-option>
+        <ion-select-option value="*">Multiplicación</ion-select-option>
+        <ion-select-option value="/">División</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="block" (click)="calcular()">Calcular</ion-button>
+
+    <div class="resultado-box">
+      <span>Resultado:</span>
+      <strong>{{ resultado === null ? 'Sin resultado' : resultado }}</strong>
+    </div>
+
+    <section class="historial-box">
+      <h2>Historial</h2>
+      <ul>
+        @for (item of historial; track $index) {
+        <li>{{ item }}</li>
+        }
+      </ul>
+    </section>
+  </main>
+</ion-content>
